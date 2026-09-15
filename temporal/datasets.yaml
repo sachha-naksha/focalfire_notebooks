@@ -10,11 +10,10 @@
 # package stays installable anywhere. Edit them, don't edit the notebooks.
 #
 # Roots are grouped LIVE / DEAD below. The LIVE ones were verified to exist on the
-# current cluster -- PSC (/ocean/projects/cis240075p), where this session is running.
-# The DEAD ones are the bhdw/bgdb cluster paths the notebooks were most recently run
-# against (a different, non-PSC cluster); none of them resolve from here. Repoint a
-# dead root before running the notebooks that use it -- everything below it then
-# follows.
+# current cluster (bhdw: /work/nvme/bhdw, /work/hdd/bhdw, /projects/bhdw). The DEAD
+# ones are the PSC (/ocean/projects/cis240075p) and bgdb paths the notebooks were
+# also run against; none of them resolve from here. Repoint a dead root before
+# running the notebooks that use it -- everything below it then follows.
 #
 # Two caveats on the substitution:
 #   * every "{name}" in `scalars` and in a group `template` is filled from `roots`,
@@ -26,27 +25,26 @@
 roots:
 
   # ---------------------------------------------------------------- LIVE ----
-  # Verified present on this cluster (PSC).
+  # Verified present on this cluster (bhdw).
 
-  # B-cell dictys run (the "actb1_added_v2" run on PSC). {bcell}/data and
-  # {bcell}/output hold the dictys inputs/outputs; {bcell}/tmp_dynamic the
-  # per-window Subset1..SubsetN directories.
-  bcell:       /ocean/projects/cis240075p/asachan/datasets/B_Cell/multiome_1st_donor_UPMC_aggr/dictys_outs/actb1_added_v2
+  # B-cell dictys run (the "actb1_added_v2" run). {bcell}/data and
+  # {bcell}/outs mirror the old .../actb1_added_v2/{data,output}.
+  bcell:       /work/nvme/bhdw/asachan/data_files/firefate/bcell
   bcell_data:  "{bcell}/data"
-  bcell_outs:  "{bcell}/output"
-  tmp_dyn:     "{bcell}/tmp_dynamic"
-  # SLIDE latent factors (feature_list_Z*.txt, z_matrix_*.csv). On PSC they live
-  # under the male donor's other_files/, not under the dictys run.
-  bcell_lf:    "{donor1}/other_files/latent_factors"
+  bcell_outs:  "{bcell}/outs"
+  # SLIDE latent factors (feature_list_Z*.txt, z_matrix_*.csv).
+  bcell_lf:    "{bcell}/latent_factors"
+
+  # Per-window dictys working directories (Subset1..SubsetN). NOT under {bcell}.
+  tmp_dyn:     /work/hdd/bhdw/asachan/dictys_related/tmp_dynamic
 
   inputs:      "{bcell_outs}/intermediate_tmp_files"
-  enrichment:  "{inputs}/direct_effect_enrichment"
+  enrichment:  "{inputs}/direct_effect_enrichment_fixed"
 
   # Where figures for the paper are written.
-  figures:     "{bcell_outs}/figures"
+  figures:     /projects/bhdw/asachan/papers/focalfire/figures
   # Intermediate results handed off between notebooks (e.g. SS_LINKS_CSV below).
-  # Reuses {inputs} since nothing PSC-specific has been carved out for it yet.
-  scratch:     "{inputs}"
+  scratch:     /projects/bhdw/asachan/tmp
 
   # T-cell (RBPJ / ETS1 / IKZF1 knockouts)
   tcell:       /ocean/projects/cis240075p/asachan/datasets/B_Cell/T_cell/outs/dictys/rbpj_ntc
@@ -71,15 +69,16 @@ roots:
   motifs:      /ocean/projects/cis240075p/asachan/datasets/TF_motif_files
 
   # ---------------------------------------------------------------- DEAD ----
-  # The bhdw/bgdb cluster's paths (a different, non-PSC cluster) the notebooks
-  # were most recently run against. No copy of these resolves on PSC. Kept
-  # verbatim as a provenance record -- to run against that cluster instead,
-  # repoint the LIVE roots above back to these values.
+  # The PSC cluster's values for the B-cell roots above. No copy of these
+  # resolves on bhdw. Kept verbatim as a provenance record -- to run on PSC
+  # instead, repoint the LIVE roots above back to these values (and note that
+  # there {bcell_outs} is "{bcell}/output", {tmp_dyn} is "{bcell}/tmp_dynamic",
+  # {enrichment} is "{inputs}/direct_effect_enrichment", {figures} is
+  # "{bcell_outs}/figures" and {scratch} is "{inputs}").
 
-  bhdw_bcell:     /work/nvme/bhdw/asachan/data_files/firefate/bcell
-  bhdw_tmp_dyn:   /work/hdd/bhdw/asachan/dictys_related/tmp_dynamic
-  bhdw_figures:   /projects/bhdw/asachan/papers/firefate/figures
-  bhdw_scratch:   /projects/bhdw/asachan/tmp
+  psc_bcell:      /ocean/projects/cis240075p/asachan/datasets/B_Cell/multiome_1st_donor_UPMC_aggr/dictys_outs/actb1_added_v2
+  psc_bcell_lf:   "{donor1}/other_files/latent_factors"
+  psc_ss_links:   /ocean/projects/cis240075p/asachan/datasets/B_Cell/ss_firefate_links_2B.csv
 
   # MultiVelo / velocyto inputs and outputs (bgdb cluster)
   velocity:    /work/hdd/bgdb/asachan/datasets/B_cell_dictys_actb1_added_v2
@@ -131,7 +130,7 @@ scalars:
   EPISODIC_LINKS_CSV:    "{figures}/enriched_tf_lf_targets_per_episode.csv"
   ES_BAR_DIR:            "{figures}/z11_episodic_enrichment"
   FIGURES_SUPPL:         "{figures}"
-  SS_LINKS_CSV:          /ocean/projects/cis240075p/asachan/datasets/B_Cell/ss_firefate_links_2B.csv
+  SS_LINKS_CSV:          "{scratch}/ss_firefate_links_2B.csv"
   ENRICHED_LINKS_PB:     "{inputs}/enriched_links_PB.csv"
   FILTERED_EDGES_PB_EP4: "{inputs}/filtered_edges_significant_invariant_PB_ep4.parquet"
   KO_PROGRAM_DIR:        "{inputs}/prdm1_ko/bcl6_dynamic_activity_KO_program"
