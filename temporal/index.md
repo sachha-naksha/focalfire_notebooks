@@ -64,6 +64,7 @@ Episodic TF enrichment <analysis/Fig3_2_episodic_enrichment>
 Episodic TF enrichment — knockout programs <analysis/Fig5_episodic_enrichment>
 Clustering links into regulatory phases <analysis/Fig4_3_phase_clustered_links>
 TF binding dynamics from chromatin <analysis/Ext_chromatin_dynamics>
+TF binding dynamics in differentiation phases <analysis/Fig4_4_tf_binding_phases>
 Validation — enriched vs random TF force <analysis/Fig4_2_dynamic_validation>
 Tpex/Tex TF forces <analysis/Ext_tpex_ex_forces>
 ```
