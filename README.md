@@ -1,8 +1,12 @@
 # Focal notebooks
 
 All code notebooks for reproducibility, for
-[**Focal**](https://github.com/jishnu-lab/FOCAL) — Functional and Interpretable
-Regulatory Encoding of cellular Fate.
+[**Focal**](https://github.com/jishnu-lab/FOCAL) (Factor-Outcome Coupling for Assessment
+of Linkages), an open-source toolkit that combines mechanistic models of networks with
+interpretable machine learning to focus dense state-specific and dynamic networks onto
+the regulatory components that govern cell fate decisions. It works on single-cell RNA
+and ATAC data (sc/snRNA-seq, scATAC-seq), matched or unmatched and provides GIFs (GRNs
+coupled with Interpretable Factor-outcomes).
 
 This repository is consumed as a git submodule at `docs/notebooks` in the main
 repository, and rendered into the documentation at
