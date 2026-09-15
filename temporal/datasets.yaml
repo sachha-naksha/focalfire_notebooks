@@ -1,12 +1,12 @@
 # Dataset locations for the temporal notebooks.
 #
 # Read with:
-#     from firefate.io import DatasetPaths
-#     config = DatasetPaths.find()   # walks up from the kernel cwd, or uses $FIREFATE_DATASETS
+#     from focal.io import DatasetPaths
+#     config = DatasetPaths.find()   # walks up from the kernel cwd, or uses $FOCAL_DATASETS
 #     config.DYNAMIC_H5        # a scalar
 #     config.PB["ep1"]         # a group, keyed ep1..epN
 #
-# These are cluster-specific and deliberately live outside src/firefate/ so the
+# These are cluster-specific and deliberately live outside src/focal/ so the
 # package stays installable anywhere. Edit them, don't edit the notebooks.
 #
 # Roots are grouped LIVE / DEAD below. The LIVE ones were verified to exist on the

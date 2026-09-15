@@ -3,7 +3,7 @@
 
 Rebuilds the per-episode enrichment tables that ``config.PB['ep1'..'ep4']`` and
 ``config.GC['ep1'..'ep4']`` in ``../datasets.yaml`` point at, with the *fixed*
-``focalfire.temporal`` code (ISSUES #1 and #3 -- the June 2025 tables on disk were
+``focal.temporal`` code (ISSUES #1 and #3 -- the June 2025 tables on disk were
 produced before those fixes and are wrong).
 
 Pipeline per (branch, episode), identical to ``TemporalManager.enrich_episode``:
@@ -24,7 +24,7 @@ GC-vs-PB state-discriminative latent factors, Z11 u Z3 with HLA- genes dropped
 exactly by the union and not by Z11 alone. The union is written to the primary
 paths; Z11-only tables go to ``z11_only/`` for comparison.
 
-Settings follow ``focalfire/tests/episodic_fix_validation`` (the run on the bhdw
+Settings follow ``focal/tests/episodic_fix_validation`` (the run on the bhdw
 cluster whose GRN scale matched the published tables): PB = (1, 2), GC = (1, 3),
 num_points = 20, points_per_episode = 5 (4 episodes), dist = 0.001,
 sparsity = 0.01, percentile = 98, pval_threshold = 1e-3, network ``w``.
@@ -107,9 +107,9 @@ def main(argv=None) -> int:
     if args.num_points is None:
         args.num_points = 20 if args.programs == "gcpb" else 40
 
-    from focalfire.io import DatasetPaths
+    from focal.io import DatasetPaths
     import dictys
-    from focalfire.temporal._episodes import EpisodeDynamics
+    from focal.temporal._episodes import EpisodeDynamics
 
     config = DatasetPaths.from_yaml(args.datasets_yaml)
     # programs: name -> (genes, destination dir, table file name for (episode, branch))

@@ -149,7 +149,7 @@ SKIP_SUBSTRINGS = ("/dev/shm", "/.cache", "/tut_files/", "/projects/bgdb/asachan
 
 LOADER = """# Dataset locations for this notebook come from ../datasets.yaml.
 # Edit that file to point at your own copies -- do not hardcode paths below.
-from firefate.io import DatasetPaths
+from focal.io import DatasetPaths
 
 config = DatasetPaths.from_yaml("../datasets.yaml")
 """

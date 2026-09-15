@@ -14,14 +14,14 @@ installed package:
 
   * `phase_clustered_links.ipynb` uses `sd.StateFrequency` and `sd.TFForceWaves`
     as well as `sd.plot_force_heatmap_by_phase`. The doc's
-    `import firefate.temporal._phases as sd` would break the first two -- they
+    `import focal.temporal._phases as sd` would break the first two -- they
     live in `_states` and `_waves` and `_phases` does not re-export them. Aliased
-    to the `firefate.temporal` package instead, which exports all three.
+    to the `focal.temporal` package instead, which exports all three.
   * `dynamic_grn_b_cell.ipynb` only ever calls `qc_reads` from the old `utils`,
     so `read_h5_file`, `read_adata_from_pkl` and `plot_main_trajectory_nodes` are
     not imported. The doc lists them; they would be unused.
 
-The doc's `import firefate as ff` is also omitted -- no notebook references `ff`.
+The doc's `import focal as ff` is also omitted -- no notebook references `ff`.
 Explicit numpy/pandas/matplotlib imports are only added where the notebook would
 otherwise lose a name it uses (star imports no longer leak them): in practice that
 is `pickle` in LF_global_dynamics.ipynb and nothing else.
@@ -54,8 +54,8 @@ from episodic_dynamics import *
 """, """
 import dictys
 
-from firefate.temporal import *      # classes AND their figures
-from firefate.utils import *         # gene / state helpers (was utils_custom)
+from focal.temporal import *      # classes AND their figures
+from focal.utils import *         # gene / state helpers (was utils_custom)
 """)
 
 # --- LF_global_dynamics ------------------------------------------------------
@@ -70,13 +70,13 @@ import pickle
 import matplotlib                    # for matplotlib.animation.writers
 from dictys.net import stat          # both were leaked by the old star imports
 
-from firefate.temporal import *      # classes AND their figures (was episode_plots)
-from firefate.utils import *         # gene / state helpers (was utils_custom)
+from focal.temporal import *      # classes AND their figures (was episode_plots)
+from focal.utils import *         # gene / state helpers (was utils_custom)
 """)
 
 add("analysis/Fig4_1_LF_global_dynamics.ipynb",
     "from pseudotime_curves import *",
-    "from firefate.temporal import *")
+    "from focal.temporal import *")
 
 # --- t_cell_analysis ---------------------------------------------------------
 add("analysis/Ext_tpex_ex_forces.ipynb", """
@@ -84,8 +84,8 @@ from utils_custom import *
 from pseudotime_curves import *
 from episodic_dynamics import *
 """, """
-from firefate.temporal import *
-from firefate.utils import *
+from focal.temporal import *
+from focal.utils import *
 """)
 
 # --- chromatin_dynamics: reload cell ----------------------------------------
@@ -97,11 +97,11 @@ importlib.reload(episode_plots)          # re-runs `from firefate.utils.plots im
 from episode_plots import *              # re-bind names into the notebook namespace
 """, """
 import importlib
-import firefate.temporal._chromatin, firefate.temporal._curves, firefate.temporal._waves
-for _m in (firefate.temporal._chromatin, firefate.temporal._curves,
-           firefate.temporal._waves, firefate.temporal):
+import focal.temporal._chromatin, focal.temporal._curves, focal.temporal._waves
+for _m in (focal.temporal._chromatin, focal.temporal._curves,
+           focal.temporal._waves, focal.temporal):
     importlib.reload(_m)
-from firefate.temporal import *          # re-bind names into the notebook namespace
+from focal.temporal import *          # re-bind names into the notebook namespace
 """)
 
 # --- dynamic_validation ------------------------------------------------------
@@ -117,15 +117,15 @@ from state_dynamics import TFForceWaves, StateFrequency, BindingPhases
 from dynamic_validation import TFForceValidation
 """, """
 import importlib
-import firefate.utils
-import firefate.temporal._phases, firefate.temporal._states
-import firefate.temporal._waves, firefate.temporal._validation
+import focal.utils
+import focal.temporal._phases, focal.temporal._states
+import focal.temporal._waves, focal.temporal._validation
 # reload order matters: _phases imports from _states/_align, and _validation
 # imports from _phases and _waves, so reload the dependencies first.
-for _m in (firefate.utils, firefate.temporal._waves, firefate.temporal._states,
-           firefate.temporal._phases, firefate.temporal._validation, firefate.temporal):
+for _m in (focal.utils, focal.temporal._waves, focal.temporal._states,
+           focal.temporal._phases, focal.temporal._validation, focal.temporal):
     importlib.reload(_m)
-from firefate.temporal import TFForceWaves, StateFrequency, BindingPhases, TFForceValidation
+from focal.temporal import TFForceWaves, StateFrequency, BindingPhases, TFForceValidation
 """)
 
 add("analysis/Fig4_2_dynamic_validation.ipynb", """
@@ -133,43 +133,43 @@ import importlib, dynamic_validation
 importlib.reload(dynamic_validation)
 from dynamic_validation import TFForceValidation
 """, """
-import importlib, firefate.temporal._validation
-importlib.reload(firefate.temporal._validation)
-from firefate.temporal._validation import TFForceValidation
+import importlib, focal.temporal._validation
+importlib.reload(focal.temporal._validation)
+from focal.temporal._validation import TFForceValidation
 """)
 
 add("analysis/Fig4_2_dynamic_validation.ipynb",
     "from firefate.core.pseudotime_curves import SmoothedCurvesChromatin",
-    "from firefate.temporal import SmoothedCurvesChromatin")
+    "from focal.temporal import SmoothedCurvesChromatin")
 
 add("analysis/Fig4_2_dynamic_validation.ipynb", """
 import importlib, state_dynamics
 importlib.reload(state_dynamics)
 from state_dynamics import BindingPhases
 """, """
-import importlib, firefate.temporal._phases
-importlib.reload(firefate.temporal._phases)
-from firefate.temporal._phases import BindingPhases
+import importlib, focal.temporal._phases
+importlib.reload(focal.temporal._phases)
+from focal.temporal._phases import BindingPhases
 """)
 
 # --- episodic_enrichment -----------------------------------------------------
 add("analysis/Fig3_2_episodic_enrichment.ipynb", """
 import importlib
-from firefate.utils import plots
+from focal.utils import plots
 importlib.reload(plots)
 from episode_plots import *              # re-bind names into the notebook namespace
 """, """
 import importlib
-import firefate.temporal._episodes
-importlib.reload(firefate.temporal._episodes)
-importlib.reload(firefate.temporal)
-from firefate.temporal import *          # re-bind names into the notebook namespace
+import focal.temporal._episodes
+importlib.reload(focal.temporal._episodes)
+importlib.reload(focal.temporal)
+from focal.temporal import *          # re-bind names into the notebook namespace
 """)
 
 add("analysis/Fig3_2_episodic_enrichment.ipynb",
     "from firefate.enrichment import build_tf_color_bar_table, load_lf_gene_colors",
-    "from firefate.io import load_lf_gene_colors\n"
-    "from firefate.state_specific import build_tf_color_bar_table, plot_tf_enrichment_bars")
+    "from focal.io import load_lf_gene_colors\n"
+    "from focal.state_specific import build_tf_color_bar_table, plot_tf_enrichment_bars")
 
 # the LF colour-bar figures moved with their subject; call them unqualified now
 add("analysis/Fig3_2_episodic_enrichment.ipynb",
@@ -190,17 +190,17 @@ importlib.reload(firefate.utils.custom)
 importlib.reload(state_dynamics)
 """, """
 import importlib
-import firefate.utils, firefate.temporal._waves, firefate.temporal._phases
-for _m in (firefate.utils, firefate.temporal._waves,
-           firefate.temporal._phases, firefate.temporal):
+import focal.utils, focal.temporal._waves, focal.temporal._phases
+for _m in (focal.utils, focal.temporal._waves,
+           focal.temporal._phases, focal.temporal):
     importlib.reload(_m)
 """)
 
-# NOT `firefate.temporal._phases as sd`: this notebook also calls sd.StateFrequency
+# NOT `focal.temporal._phases as sd`: this notebook also calls sd.StateFrequency
 # (_states) and sd.TFForceWaves (_waves), which _phases does not re-export.
 add("analysis/Fig4_3_phase_clustered_links.ipynb",
     "import state_dynamics as sd",
-    "import firefate.temporal as sd")
+    "import focal.temporal as sd")
 
 # --- renamed API, not covered by NOTEBOOK_MIGRATION.md -----------------------
 # `SmoothedCurves` was split into SmoothedCurvesGRN / SmoothedCurvesChromatin.
@@ -219,7 +219,7 @@ add("analysis/Ext_tpex_ex_forces.ipynb", "run_episode(", "run_episodic_enrichmen
 # `qc_reads` is the only name this notebook used from the old utils.py.
 add("dynamic_grn/dynamic_grn_b_cell.ipynb",
     "from utils import *",
-    "from firefate.io import qc_reads")
+    "from focal.io import qc_reads")
 
 
 def main() -> int:

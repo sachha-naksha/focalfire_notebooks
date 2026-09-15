@@ -1,8 +1,8 @@
 # State-specific
 
-Notebooks for {mod}`firefate.state_specific` — what separates two *fixed* cell states,
+Notebooks for {mod}`focal.state_specific` — what separates two *fixed* cell states,
 and what happens when the regulators of that difference are perturbed. The numbered
-notebooks run in order and form the original FIREFate pipeline.
+notebooks run in order and form the original Focal pipeline.
 
 ```{toctree}
 :maxdepth: 1

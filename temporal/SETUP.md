@@ -1,13 +1,13 @@
 # Setup for the temporal notebooks
 
 Two things have to be true before any notebook in `trajectory/`, `dynamic_grn/` or
-`analysis/` runs: `firefate` must be importable in the kernel, and `datasets.yaml` must
+`analysis/` runs: `focal` must be importable in the kernel, and `datasets.yaml` must
 point at your copies of the data. Nothing here is notebook-specific — do it once per
 machine.
 
-## 1. Install the FIREFate backend (editable)
+## 1. Install the Focal backend (editable)
 
-The notebooks import `firefate` as an ordinary package; there is no `sys.path`
+The notebooks import `focal` as an ordinary package; there is no `sys.path`
 bootstrap any more. Install the main repository in editable mode **into the same
 environment whose kernel the notebooks use** (`dictys` on our cluster):
 
@@ -15,22 +15,22 @@ environment whose kernel the notebooks use** (`dictys` on our cluster):
 source /sw/rh9.4/python/miniforge3/etc/profile.d/conda.sh
 conda activate dictys
 
-git clone https://github.com/sachha-naksha/FIREFate      # or use your existing clone
-cd FIREFate
+git clone https://github.com/sachha-naksha/FocalFire Focal   # or use your existing clone
+cd Focal
 pip install -e .
 ```
 
-`-e` means edits under `src/firefate/` are picked up on the next kernel restart — no
+`-e` means edits under `src/focal/` are picked up on the next kernel restart — no
 reinstall. Verify from the same environment:
 
 ```bash
-python -c "import firefate, firefate.io; print(firefate.__file__)"
+python -c "import focal, focal.io; print(focal.__file__)"
 ```
 
-The path printed must be your clone's `src/firefate/__init__.py`, not a copy under
+The path printed must be your clone's `src/focal/__init__.py`, not a copy under
 `site-packages/`. If it is not, you installed into a different environment.
 
-If you would rather not leave the notebook, `%pip install -e /path/to/FIREFate` in the
+If you would rather not leave the notebook, `%pip install -e /path/to/Focal` in the
 first cell installs into the running kernel's environment; restart the kernel after.
 
 ### Optional extras
@@ -53,13 +53,13 @@ than in `dependencies`. Match the environment to the notebook directory.
 ## 2. Point `datasets.yaml` at your data
 
 Every dataset location for these notebooks lives in `temporal/datasets.yaml`. Edit that
-file — never the notebooks, and never `src/firefate/`, which is why the paths were
+file — never the notebooks, and never `src/focal/`, which is why the paths were
 moved out of the package in the first place.
 
 Every notebook now opens with a loader cell that reads it:
 
 ```python
-from firefate.io import DatasetPaths
+from focal.io import DatasetPaths
 
 config = DatasetPaths.find()
 ```
@@ -116,11 +116,11 @@ groups:                                 # one path per episode
 `DatasetPaths.find()` walks up from the kernel's working directory to the first
 `datasets.yaml`, so it finds `temporal/datasets.yaml` from `analysis/`, `dynamic_grn/`
 or `trajectory/` regardless of where Jupyter was started; a kernel started outside the
-notebook tree sets `FIREFATE_DATASETS=/path/to/datasets.yaml` once instead.
+notebook tree sets `FOCAL_DATASETS=/path/to/datasets.yaml` once instead.
 `DatasetPaths.from_yaml(path)` is the explicit form.
 
 ```python
-from firefate.io import DatasetPaths
+from focal.io import DatasetPaths
 
 config = DatasetPaths.find()  # or DatasetPaths.from_yaml("../datasets.yaml")
 config.OUTPUT_FOLDER          # scalar -> str
@@ -178,7 +178,7 @@ Because the new packages define `__all__`, a star import no longer leaks the mod
 own imports into the notebook. Where a notebook depended on that, the name is now
 imported explicitly — `pickle`, `matplotlib` and `dictys.net.stat` in
 `LF_global_dynamics`, and `calculate_tf_episodic_enrichment` (which lives in
-`firefate.base`, not `firefate.temporal`) in `LF_local_dynamics`.
+`focal.base`, not `focal.temporal`) in `LF_local_dynamics`.
 
 Two renames that `NOTEBOOK_MIGRATION.md` does not mention were applied as well:
 `SmoothedCurves` → `SmoothedCurvesGRN` and `run_episode` → `run_episodic_enrichment`.

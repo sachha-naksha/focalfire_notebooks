@@ -1,24 +1,24 @@
-# FIREFate notebooks
+# Focal notebooks
 
 All code notebooks for reproducibility, for
-[**FIREFate**](https://github.com/sachha-naksha/FIREFate) — Functional and Interpretable
+[**Focal**](https://github.com/sachha-naksha/FocalFire) — Functional and Interpretable
 Regulatory Encoding of cellular Fate.
 
 This repository is consumed as a git submodule at `docs/notebooks` in the main
 repository, and rendered into the documentation at
-[firefate.readthedocs.io](https://firefate.readthedocs.io/). Keeping the notebooks
+[focalfire.readthedocs.io](https://focalfire.readthedocs.io/). Keeping the notebooks
 here keeps ~26 MB of stored cell outputs out of the source tree while still letting the
 docs render them.
 
 ## Layout
 
-Notebooks are grouped by the FIREFate module they exercise, mirroring `src/firefate/`:
+Notebooks are grouped by the Focal module they exercise, mirroring `src/focal/`:
 
 | directory | module | what it covers |
 |---|---|---|
-| `temporal/` | `firefate.temporal` | trajectory inference, dynamic GRNs, episodic GRNs and their enrichment (capabilities 3, 4, dynamic 5) |
-| `state_specific/` | `firefate.state_specific` | preprocessing, state-specific GRN inference, latent-factor enrichment, in-silico perturbation (capabilities 1, 2, static 5, 6) |
-| `cross_prediction/` | `firefate.cross_prediction` | fate-bias stratification by transferring programs across datasets (capability 7) — empty until that module is ported |
+| `temporal/` | `focal.temporal` | trajectory inference, dynamic GRNs, episodic GRNs and their enrichment (capabilities 3, 4, dynamic 5) |
+| `state_specific/` | `focal.state_specific` | preprocessing, state-specific GRN inference, latent-factor enrichment, in-silico perturbation (capabilities 1, 2, static 5, 6) |
+| `cross_prediction/` | `focal.cross_prediction` | fate-bias stratification by transferring programs across datasets (capability 7) — empty until that module is ported |
 
 Within `temporal/`, `trajectory/` comes first (STREAM/Palantir/MultiVelo pseudotime),
 then `dynamic_grn/` (dictys inputs and window networks), then `analysis/` (everything
@@ -37,23 +37,23 @@ re-run one you need:
    conda env create -f environment.yml
    conda activate fftemporal
    ```
-2. `firefate` on top of it, editable from your own clone. It is deliberately **not**
+2. `focal` on top of it, editable from your own clone. It is deliberately **not**
    in `environment.yml`: the package is under active development, so the environment
    tracks whatever you have checked out rather than a pinned snapshot. `--no-deps`
    keeps pip from re-resolving packages conda already placed:
    ```bash
-   git clone https://github.com/sachha-naksha/FIREFate
-   pip install -e FIREFate --no-deps
+   git clone https://github.com/sachha-naksha/FocalFire Focal
+   pip install -e Focal --no-deps
    ```
 3. Dataset paths pointed at your own copies. Every path lives in
    `temporal/datasets.yaml` — edit that file, not the notebooks. Each temporal
    notebook already opens with the loader cell that reads it:
    ```python
-   from firefate.io import DatasetPaths
+   from focal.io import DatasetPaths
    config = DatasetPaths.find()
    ```
    `find()` walks up from the kernel's working directory to the first
-   `datasets.yaml`, or takes the path in `$FIREFATE_DATASETS`, so it does not matter
+   `datasets.yaml`, or takes the path in `$FOCAL_DATASETS`, so it does not matter
    where Jupyter was started.
    `temporal/SETUP.md` explains which roots are live on this cluster and which are
    dead PSC paths you have to repoint first.
@@ -72,18 +72,18 @@ re-run one you need:
 ### Regenerating environment.yml
 
 `environment.yml` is an export of the working `fftemporal` environment with the
-`firefate` line stripped, since that entry refers to a local editable install and
+`focal` line stripped, since that entry refers to a local editable install and
 resolves for nobody else:
 
 ```bash
 conda env export -n fftemporal --no-builds \
-  | sed -e '/^      - firefate==/d' -e '/^prefix: /d' > environment.yml
+  | sed -e '/^      - focal==/d' -e '/^prefix: /d' > environment.yml
 ```
 
 It pins exact versions and is linux-64 only — the `homer` / `macs2` / `samtools`
 dependencies have no macOS or Windows builds.
 
-`NOTEBOOK_MIGRATION.md` records the import changes made when the FIREFate package was
+`NOTEBOOK_MIGRATION.md` records the import changes made when the Focal package was
 restructured around its three modules, with the old and new cell for each notebook.
 
 ## Page titles
@@ -106,7 +106,7 @@ on its next autosave.
 `temporal/apply_imports.py` is its counterpart for imports: it applied
 `NOTEBOOK_MIGRATION.md` to the temporal notebooks, moving them off the pre-split
 modules (`utils_custom`, `pseudotime_curves`, `firefate.core.*`, …) and onto
-`firefate.temporal` / `state_specific` / `io` / `backends.dictys`. Same contract —
+`focal.temporal` / `state_specific` / `io` / `backends.dictys`. Same contract —
 idempotent, dry-run by default, matches on cell content rather than index, and leaves
 outputs untouched. Its docstring records the three places it deliberately departs from
 the doc.

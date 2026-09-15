@@ -1,6 +1,6 @@
 # Temporal
 
-Notebooks for {mod}`firefate.temporal` — how TF regulation changes *along* a
+Notebooks for {mod}`focal.temporal` — how TF regulation changes *along* a
 trajectory. Read them in the order below: pseudotime is inferred first, the dictys
 window networks are built on top of it, and everything else is analysis of those
 networks.
@@ -10,7 +10,7 @@ than a heading.
 
 ## Setup
 
-Installing the `firefate` backend and pointing `datasets.yaml` at your own data, once
+Installing the `focal` backend and pointing `datasets.yaml` at your own data, once
 per machine.
 
 ```{toctree}

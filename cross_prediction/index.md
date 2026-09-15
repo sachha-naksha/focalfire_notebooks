@@ -1,6 +1,6 @@
 # Cross-prediction
 
-Notebooks for {mod}`firefate.cross_prediction` — stratifying uncommitted populations
+Notebooks for {mod}`focal.cross_prediction` — stratifying uncommitted populations
 for fate bias using cellular programs inferred from an intervention (for example a TF
 knockout) against unperturbed controls.
 

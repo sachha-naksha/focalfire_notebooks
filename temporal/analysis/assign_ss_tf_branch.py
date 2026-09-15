@@ -19,8 +19,8 @@ import numpy as np
 import pandas as pd
 import dictys
 
-from focalfire.io import DatasetPaths
-from focalfire.temporal import SmoothedCurvesGRN
+from focal.io import DatasetPaths
+from focal.temporal import SmoothedCurvesGRN
 
 BRANCHES = {'PB': (0, 2), 'GC': (0, 3)}
 SMOOTHING = dict(num_points=100, dist=0.0005, sparsity=0.01)
