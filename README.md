@@ -6,7 +6,7 @@ Regulatory Encoding of cellular Fate.
 
 This repository is consumed as a git submodule at `docs/notebooks` in the main
 repository, and rendered into the documentation at
-[focalfire.readthedocs.io](https://focalfire.readthedocs.io/). Keeping the notebooks
+[focal-gifs.readthedocs.io](https://focal-gifs.readthedocs.io/). Keeping the notebooks
 here keeps ~26 MB of stored cell outputs out of the source tree while still letting the
 docs render them.
 
