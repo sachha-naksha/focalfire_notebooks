@@ -15,7 +15,7 @@ environment whose kernel the notebooks use** (`dictys` on our cluster):
 source /sw/rh9.4/python/miniforge3/etc/profile.d/conda.sh
 conda activate dictys
 
-git clone https://github.com/sachha-naksha/FocalFire Focal   # or use your existing clone
+git clone https://github.com/jishnu-lab/FOCAL Focal   # or use your existing clone
 cd Focal
 pip install -e .
 ```

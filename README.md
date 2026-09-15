@@ -1,7 +1,7 @@
 # Focal notebooks
 
 All code notebooks for reproducibility, for
-[**Focal**](https://github.com/sachha-naksha/FocalFire) — Functional and Interpretable
+[**Focal**](https://github.com/jishnu-lab/FOCAL) — Functional and Interpretable
 Regulatory Encoding of cellular Fate.
 
 This repository is consumed as a git submodule at `docs/notebooks` in the main
@@ -42,7 +42,7 @@ re-run one you need:
    tracks whatever you have checked out rather than a pinned snapshot. `--no-deps`
    keeps pip from re-resolving packages conda already placed:
    ```bash
-   git clone https://github.com/sachha-naksha/FocalFire Focal
+   git clone https://github.com/jishnu-lab/FOCAL Focal
    pip install -e Focal --no-deps
    ```
 3. Dataset paths pointed at your own copies. Every path lives in

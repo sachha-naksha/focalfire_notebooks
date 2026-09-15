@@ -10,7 +10,7 @@ themselves — {doc}`the migration notes <NOTEBOOK_MIGRATION>` record how paths 
 imports are wired after the package was restructured.
 
 They live in their own repository,
-[focal_notebooks](https://github.com/sachha-naksha/focalfire_notebooks), pulled in
+[FOCAL_notebooks](https://github.com/jishnu-lab/FOCAL_notebooks), pulled in
 here as a git submodule.
 
 ```{toctree}
